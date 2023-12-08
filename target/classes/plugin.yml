@@ -1,0 +1,9 @@
+name: demo
+main: com.autosaveworld.Plugin
+version: 0.1
+api-version: 1.15
+description: Auto Save World
+
+commands:
+  autosave:
+    description: Save world
