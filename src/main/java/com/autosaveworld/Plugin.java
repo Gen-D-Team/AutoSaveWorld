@@ -2,9 +2,7 @@ package com.autosaveworld;
 
 import java.util.logging.Logger;
 
-import org.bukkit.Bukkit;
 import org.bukkit.plugin.java.JavaPlugin;
-import org.bukkit.scheduler.BukkitScheduler;
 
 /*
  * demo java plugin
@@ -12,26 +10,20 @@ import org.bukkit.scheduler.BukkitScheduler;
 public class Plugin extends JavaPlugin
 {
   
-  public static Logger LOGGER=Logger.getLogger("demo");
-
-  BukkitScheduler scheduler = Bukkit.getServer().getScheduler();
-  private int timeToSave = 20 * 10;
-  AutoSave autoSave = new AutoSave();
+  public static Logger LOGGER=Logger.getLogger("autosaveworld");
+  private AutoSave autoSave;
 
   @Override
   public void onEnable()
   {
-    LOGGER.info("demo enabled"); 
-    scheduler.runTaskTimerAsynchronously(this, () -> {
-      autoSave.run();
-      // getServer().dispatchCommand(getServer().getConsoleSender(), null);
-      getLogger().info("World saved automatically.");
-    }, 0, timeToSave);
-      autoSave.run();
+    autoSave = new AutoSave();
+
+    LOGGER.info("AutoSaveWorld enabled");
+    getCommand("save").setExecutor(autoSave);
   }
 
   public void onDisable()
   {
-    LOGGER.info("demo disabled");
+    LOGGER.info("AutoSaveWorld disabled");
   }
 }
