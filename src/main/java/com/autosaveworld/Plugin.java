@@ -11,15 +11,15 @@ public class Plugin extends JavaPlugin
 {
   
   public static Logger LOGGER=Logger.getLogger("autosaveworld");
-  private AutoSave autoSave;
+  CreateFolder createFolder = new CreateFolder();
+  
 
   @Override
   public void onEnable()
   {
-    autoSave = new AutoSave();
-
+    
+    createFolder.createFolder();
     LOGGER.info("AutoSaveWorld enabled");
-    getCommand("save").setExecutor(autoSave);
   }
 
   public void onDisable()

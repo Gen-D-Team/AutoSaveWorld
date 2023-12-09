@@ -13,7 +13,7 @@ import org.bukkit.scheduler.BukkitRunnable;
 
 public class AutoSave extends BukkitRunnable implements CommandExecutor {
     Player player;
-    CommandSender sender;
+    World world;
 
     public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
         
