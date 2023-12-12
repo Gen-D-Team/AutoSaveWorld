@@ -1,65 +1,94 @@
 package com.autosaveworld;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.IOException;
-import java.nio.file.*;
-import java.nio.file.attribute.BasicFileAttributes;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.EnumSet;
+import java.util.zip.ZipEntry;
+import java.util.zip.ZipOutputStream;
 
-public class saveFolder {
+public class SaveFolder {
+    public void createZip() throws IOException {
+        LocalDateTime dateNow = LocalDateTime.now();
+        DateTimeFormatter date = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+        DateTimeFormatter time = DateTimeFormatter.ofPattern("HH-mm-ss");
 
-    // Function để gọi copyDir
-    public void copyFolder(Path src, Path dest) throws IOException {
-        // Nếu src không phải là 1 folder
+        String zipName = date.format(dateNow);
+        String baseFile = time.format(dateNow);
+
+        File folderToZip = new File("E:\\server");
+        File zip = new File("E:\\Java\\AutoSaveWorld\\src\\main\\dataWorld\\" + zipName + ".zip");
         try {
-            Files.walkFileTree(src, EnumSet.of(FileVisitOption.FOLLOW_LINKS), Integer.MAX_VALUE,
-                    new SimpleFileVisitor<Path>() {
+            FileOutputStream fos = new FileOutputStream(zip);
+            ZipOutputStream zos = new ZipOutputStream(fos);
 
-                        @Override
-                        public FileVisitResult preVisitDirectory(Path dir, BasicFileAttributes attrs)
-                                throws IOException {
-                            Path targetDest = dest.resolve(src.relativize(dir));
+            ZipEntry ze = new ZipEntry(baseFile + "/");
+            zos.putNextEntry(ze);
 
-                            try {
-                                Files.copy(dir, targetDest);
-                            } catch (FileAlreadyExistsException e) {
-                                if (!Files.isDirectory(targetDest)) {
-                                    throw e;
-                                }
-                            }
+            zos.closeEntry();
 
-                            return FileVisitResult.CONTINUE;
-                        }
+            for (File folder : folderToZip.listFiles()) {
+                if (folder.getName().equals("world") ||
+                        folder.getName().equals("world_nether") ||
+                        folder.getName().equals("world_the_end")) {
+                    zipDir(folder, baseFile + "/" + folder.getName(), zos);
+                }
+            }
 
-                        @Override
-                        public FileVisitResult visitFile(Path file, BasicFileAttributes attrs)
-                                throws IOException {
-                            Files.copy(file, dest.resolve(src.relativize(file)));
-                            return FileVisitResult.CONTINUE;
-                        }
-                    });
-        } catch (IOException e) {
+            zos.close();
+            fos.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+    }
+
+    public void zipDir(File folder, String fileName, ZipOutputStream zos) {
+        try {
+            ZipEntry ze = new ZipEntry(fileName + "/");
+            zos.putNextEntry(ze);
+
+            for (File file : folder.listFiles()) {
+                if (file.isDirectory()) {
+                    zipDir(file, fileName + "/" + file.getName(), zos);
+                } else {
+                    // chỉ lấy từ folder bắt đầu bên trong file world và lấy thêm time ở đầu file zip
+                    String getDest = fileName.split("/")[0] + "\\" + file.getAbsolutePath().substring(file.getAbsolutePath().indexOf("world"));
+                    
+                    addFile(file, getDest, zos);
+                }
+            }
+
+            zos.closeEntry();
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
-    public Path getDestFolder(String srcName) {
-        LocalDateTime time = LocalDateTime.now();
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH-mm-ss");
-        Path folder = Paths.get("E:\\Java\\AutoSaveWorld\\src\\main\\dataWorld\\" + formatter.format(time) + "\\" + srcName);
-
+    public void addFile(File file, String parentFolder, ZipOutputStream zos) {
         try {
-            Files.createDirectories(folder);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }     
-        return folder;
-    }
+            if (file.getName().equalsIgnoreCase("session.lock")) {
+                return;
+            }
 
-    public Path getSourceFolder(String srcName)
-    {
-        Path folder = Paths.get("E:\\Java\\Test\\" + srcName);
-        return folder;
+            FileInputStream fis = new FileInputStream(file);
+
+            ZipEntry ze = new ZipEntry(parentFolder);
+            zos.putNextEntry(ze);
+
+            byte[] buffer = new byte[1024];
+            int length;
+
+            while ((length = fis.read(buffer)) > 0) {
+                zos.write(buffer, 0, length);
+            }
+
+            fis.close();
+            zos.closeEntry();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }
