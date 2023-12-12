@@ -17,8 +17,6 @@ public class Plugin extends JavaPlugin
 
   public void onEnable()
   {
-    // Path src = Paths.get("E:\\server\\world");
-    // Path dest = Paths.get("E:\\Java\\AutoSaveWorld\\src\\main\\dataWorld");
 
     CreateFolder moveFolder = new CreateFolder();
     LOGGER.info("AutoSaveWorld enabled");
