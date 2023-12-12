@@ -7,7 +7,7 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.EnumSet;
 
-public class CreateFolder {
+public class saveFolder {
 
     // Function để gọi copyDir
     public void copyFolder(Path src, Path dest) throws IOException {
@@ -46,7 +46,7 @@ public class CreateFolder {
 
     public Path getDestFolder(String srcName) {
         LocalDateTime time = LocalDateTime.now();
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH-mm-ss");
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH-mm-ss");
         Path folder = Paths.get("E:\\Java\\AutoSaveWorld\\src\\main\\dataWorld\\" + formatter.format(time) + "\\" + srcName);
 
         try {

@@ -1,8 +1,6 @@
 package com.autosaveworld;
 
-import java.io.File;
-import java.io.IOException;
-// import java.nio.file.*;
+
 import java.util.logging.Logger;
 
 import org.bukkit.plugin.java.JavaPlugin;
@@ -13,25 +11,12 @@ import org.bukkit.plugin.java.JavaPlugin;
 public class Plugin extends JavaPlugin
 { 
   public static Logger LOGGER=Logger.getLogger("autosaveworld");
-  File src = new File("E:\\server");
+  AutoSave save = new AutoSave();  
 
   public void onEnable()
   {
-
-    CreateFolder moveFolder = new CreateFolder();
     LOGGER.info("AutoSaveWorld enabled");
-
-    try {
-      for (String file : src.list())
-      {
-        if (file.equals("world") || file.equals("world_nether") || file.equals("world_the_end"))
-        {
-          moveFolder.copyFolder(moveFolder.getSourceFolder(file), moveFolder.getDestFolder(file));   
-        }
-      }
-    } catch (IOException e) {
-      e.printStackTrace();
-    }
+    getCommand("save").setExecutor(save);
   }
 
   public void onDisable()
