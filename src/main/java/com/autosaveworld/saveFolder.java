@@ -7,9 +7,17 @@ import java.io.IOException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.zip.ZipEntry;
+import java.util.zip.ZipInputStream;
 import java.util.zip.ZipOutputStream;
 
 public class SaveFolder {
+    private String fileServer;
+
+    SaveFolder(String fileServer)
+    {
+        this.fileServer = fileServer;
+    }
+    
     public void createZip() throws IOException {
         LocalDateTime dateNow = LocalDateTime.now();
         DateTimeFormatter date = DateTimeFormatter.ofPattern("dd-MM-yyyy");
@@ -18,16 +26,67 @@ public class SaveFolder {
         String zipName = date.format(dateNow);
         String baseFile = time.format(dateNow);
 
-        File folderToZip = new File("E:\\server");
-        File zip = new File("E:\\Java\\AutoSaveWorld\\src\\main\\dataWorld\\" + zipName + ".zip");
+        File baseServer = new File(fileServer);
+        File dataFolder = new File("plugins/AutoSaveWorldConfig/");
+        File zip = new File("plugins/AutoSaveWorldConfig/" + zipName + ".zip");
+
+        if (!dataFolder.exists()) {
+            dataFolder.mkdirs();
+        }
+
+        if (zip.exists()) {
+            noReplaceZip(zip, baseServer, baseFile);
+        } else {
+            try {
+                FileOutputStream fos = new FileOutputStream(zip);
+                ZipOutputStream zos = new ZipOutputStream(fos);
+
+                ZipEntry ze = new ZipEntry(baseFile + "/");
+                zos.putNextEntry(ze);
+
+                zos.closeEntry();
+
+                for (File folder : baseServer.listFiles()) {
+                    if (folder.getName().equals("world") ||
+                            folder.getName().equals("world_nether") ||
+                            folder.getName().equals("world_the_end")) {
+                        zipDir(folder, baseFile + "/" + folder.getName(), zos);
+                    }
+                }
+
+                zos.close();
+                fos.close();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    public void noReplaceZip(File zip, File folderToZip, String baseFile) {
         try {
-            FileOutputStream fos = new FileOutputStream(zip);
+
+            FileInputStream fis = new FileInputStream(zip);
+            ZipInputStream zis = new ZipInputStream(fis);
+
+            // Tạo tệp Zip mới để ghi
+            FileOutputStream fos = new FileOutputStream("temp.zip");
             ZipOutputStream zos = new ZipOutputStream(fos);
 
-            ZipEntry ze = new ZipEntry(baseFile + "/");
-            zos.putNextEntry(ze);
+            ZipEntry zipEntry;
+            while ((zipEntry = zis.getNextEntry()) != null) {
+                zos.putNextEntry(zipEntry);
 
-            zos.closeEntry();
+                byte[] buffer = new byte[1024];
+                int len;
+
+                while ((len = zis.read(buffer)) != -1) {
+                    zos.write(buffer, 0, len);
+                }
+                zos.closeEntry();
+            }
+
+            ZipEntry zipDir = new ZipEntry(baseFile + "/");
+            zos.putNextEntry(zipDir);
 
             for (File folder : folderToZip.listFiles()) {
                 if (folder.getName().equals("world") ||
@@ -37,12 +96,21 @@ public class SaveFolder {
                 }
             }
 
+            zos.closeEntry();
+            zis.close();
             zos.close();
+            fis.close();
             fos.close();
+
+            zip.delete();
+
+            File newFile = new File("temp.zip");
+            newFile.renameTo(zip);
+
+            System.out.println("Successfully");
         } catch (Exception e) {
             e.printStackTrace();
         }
-
     }
 
     public void zipDir(File folder, String fileName, ZipOutputStream zos) {
@@ -54,9 +122,11 @@ public class SaveFolder {
                 if (file.isDirectory()) {
                     zipDir(file, fileName + "/" + file.getName(), zos);
                 } else {
-                    // chỉ lấy từ folder bắt đầu bên trong file world và lấy thêm time ở đầu file zip
-                    String getDest = fileName.split("/")[0] + "\\" + file.getAbsolutePath().substring(file.getAbsolutePath().indexOf("world"));
-                    
+                    // chỉ lấy từ folder bắt đầu bên trong file world và lấy thêm time ở đầu file
+                    // zip
+                    String getDest = fileName.split("/")[0] + "\\"
+                            + file.getAbsolutePath().substring(file.getAbsolutePath().indexOf("world"));
+
                     addFile(file, getDest, zos);
                 }
             }
