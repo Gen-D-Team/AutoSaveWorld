@@ -11,7 +11,8 @@ import org.bukkit.plugin.java.JavaPlugin;
 public class Plugin extends JavaPlugin
 { 
   public static Logger LOGGER=Logger.getLogger("autosaveworld");
-  AutoSave save = new AutoSave();  
+  String fileServer = getDataFolder().getAbsolutePath().substring(0, this.getDataFolder().getAbsolutePath().indexOf("plugins"));
+  AutoSave save = new AutoSave(fileServer);  
 
   public void onEnable()
   {
