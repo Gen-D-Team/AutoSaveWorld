@@ -1,19 +1,10 @@
-<<<<<<< HEAD
-name: demo
-=======
 name: autosaveworld
->>>>>>> c693e730ea6cd0723fda9eeb9cdd120831dcd0c7
 main: com.autosaveworld.Plugin
 version: 0.1
 api-version: 1.15
 description: Auto Save World
 
 commands:
-<<<<<<< HEAD
-  autosave:
-    description: Save world
-=======
   save:
     description: Save world
     usage: /save
->>>>>>> c693e730ea6cd0723fda9eeb9cdd120831dcd0c7
