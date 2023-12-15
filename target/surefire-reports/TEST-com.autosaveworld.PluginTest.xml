@@ -1,5 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<<<<<<< HEAD
 <testsuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report.xsd" name="com.autosaveworld.PluginTest" time="0.026" tests="1" errors="0" skipped="0" failures="0">
+=======
+<testsuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report.xsd" name="com.autosaveworld.PluginTest" time="0.011" tests="1" errors="0" skipped="0" failures="0">
+>>>>>>> 9624e9f07defb83f1a6f2d9f9b1740d6b3672aff
   <properties>
     <property name="sun.desktop" value="windows"/>
     <property name="awt.toolkit" value="sun.awt.windows.WToolkit"/>
@@ -18,8 +22,13 @@
     <property name="user.country" value="US"/>
     <property name="sun.java.launcher" value="SUN_STANDARD"/>
     <property name="sun.boot.library.path" value="C:\Program Files\Java\jdk1.8.0_202\jre\bin"/>
+<<<<<<< HEAD
     <property name="sun.java.command" value="C:\Users\trung\AppData\Local\Temp\surefire1436690000358392961\surefirebooter8862062764086035054.jar C:\Users\trung\AppData\Local\Temp\surefire1436690000358392961 2023-12-13T19-35-51_566-jvmRun1 surefire1134775726183460018tmp surefire_08926789884040853151tmp"/>
     <property name="surefire.test.class.path" value="d:\Dev4future\MinecraftPluginWorkSpace\AutoSaveWorld\target\test-classes;d:\Dev4future\MinecraftPluginWorkSpace\AutoSaveWorld\target\classes;C:\Users\trung\.m2\repository\junit\junit\4.11\junit-4.11.jar;C:\Users\trung\.m2\repository\org\hamcrest\hamcrest-core\1.3\hamcrest-core-1.3.jar;C:\Users\trung\.m2\repository\org\spigotmc\spigot-api\1.15.1-R0.1-SNAPSHOT\spigot-api-1.15.1-R0.1-SNAPSHOT.jar;C:\Users\trung\.m2\repository\commons-lang\commons-lang\2.6\commons-lang-2.6.jar;C:\Users\trung\.m2\repository\com\google\guava\guava\21.0\guava-21.0.jar;C:\Users\trung\.m2\repository\com\google\code\gson\gson\2.8.0\gson-2.8.0.jar;C:\Users\trung\.m2\repository\net\md-5\bungeecord-chat\1.13-SNAPSHOT\bungeecord-chat-1.13-SNAPSHOT.jar;C:\Users\trung\.m2\repository\org\yaml\snakeyaml\1.25\snakeyaml-1.25.jar;"/>
+=======
+    <property name="sun.java.command" value="C:\Users\DELL\AppData\Local\Temp\surefire1263278167123235746\surefirebooter2213828593833709534.jar C:\Users\DELL\AppData\Local\Temp\surefire1263278167123235746 2023-12-14T13-36-19_940-jvmRun1 surefire2260561703843286148tmp surefire_03302301488551570734tmp"/>
+    <property name="surefire.test.class.path" value="e:\Java\AutoSaveWorld\target\test-classes;e:\Java\AutoSaveWorld\target\classes;C:\Users\DELL\.m2\repository\junit\junit\4.11\junit-4.11.jar;C:\Users\DELL\.m2\repository\org\hamcrest\hamcrest-core\1.3\hamcrest-core-1.3.jar;C:\Users\DELL\.m2\repository\org\spigotmc\spigot-api\1.15.1-R0.1-SNAPSHOT\spigot-api-1.15.1-R0.1-SNAPSHOT.jar;C:\Users\DELL\.m2\repository\commons-lang\commons-lang\2.6\commons-lang-2.6.jar;C:\Users\DELL\.m2\repository\com\google\guava\guava\21.0\guava-21.0.jar;C:\Users\DELL\.m2\repository\com\google\code\gson\gson\2.8.0\gson-2.8.0.jar;C:\Users\DELL\.m2\repository\net\md-5\bungeecord-chat\1.13-SNAPSHOT\bungeecord-chat-1.13-SNAPSHOT.jar;C:\Users\DELL\.m2\repository\org\yaml\snakeyaml\1.25\snakeyaml-1.25.jar;"/>
+>>>>>>> 9624e9f07defb83f1a6f2d9f9b1740d6b3672aff
     <property name="sun.cpu.endian" value="little"/>
     <property name="user.home" value="C:\Users\trung"/>
     <property name="user.language" value="en"/>
@@ -31,7 +40,11 @@
     <property name="java.vm.specification.vendor" value="Oracle Corporation"/>
     <property name="java.specification.name" value="Java Platform API Specification"/>
     <property name="java.awt.graphicsenv" value="sun.awt.Win32GraphicsEnvironment"/>
+<<<<<<< HEAD
     <property name="surefire.real.class.path" value="C:\Users\trung\AppData\Local\Temp\surefire1436690000358392961\surefirebooter8862062764086035054.jar"/>
+=======
+    <property name="surefire.real.class.path" value="C:\Users\DELL\AppData\Local\Temp\surefire1263278167123235746\surefirebooter2213828593833709534.jar"/>
+>>>>>>> 9624e9f07defb83f1a6f2d9f9b1740d6b3672aff
     <property name="sun.boot.class.path" value="C:\Program Files\Java\jdk1.8.0_202\jre\lib\resources.jar;C:\Program Files\Java\jdk1.8.0_202\jre\lib\rt.jar;C:\Program Files\Java\jdk1.8.0_202\jre\lib\sunrsasign.jar;C:\Program Files\Java\jdk1.8.0_202\jre\lib\jsse.jar;C:\Program Files\Java\jdk1.8.0_202\jre\lib\jce.jar;C:\Program Files\Java\jdk1.8.0_202\jre\lib\charsets.jar;C:\Program Files\Java\jdk1.8.0_202\jre\lib\jfr.jar;C:\Program Files\Java\jdk1.8.0_202\jre\classes"/>
     <property name="user.script" value=""/>
     <property name="sun.management.compiler" value="HotSpot 64-Bit Tiered Compilers"/>

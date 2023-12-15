@@ -17,11 +17,17 @@ public class AutoSave extends BukkitRunnable implements CommandExecutor {
     Player player;
     World world;
     SaveFolder createFolder;
+    String fileServer;
+    
+    public AutoSave(String fileServer) {
+        this.fileServer = fileServer;
+        this.createFolder = new SaveFolder(fileServer);
+    }
 
     public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
-        
+
         if (cmd.getName().equalsIgnoreCase("save") && sender instanceof ConsoleCommandSender) {
-            createFolder = new SaveFolder();
+            
             run();
 
             try {
